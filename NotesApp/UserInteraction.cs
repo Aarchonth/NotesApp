@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace NotesApp
 {
@@ -38,21 +40,29 @@ namespace NotesApp
         }
         public void Menu()
         {
-            Console.WriteLine("Create Note.");
-            Console.WriteLine("Delete Note.");
-            Console.WriteLine("Show Notes.");
+            while (true) {
+            Console.WriteLine("Create Note. 1");
+            Console.WriteLine("Delete Note. 2");
+            Console.WriteLine("Show Notes. 3");
+            Console.WriteLine("Close Programn. 4");
             string input = Console.ReadLine();
-            switch (input) {
-                case "1":
-                   HandlingCreateNote();
-                    break;
-                case "2":   // HandlingDeleteNote()
-                    break;
-                case "3":   // HandlingShowNotes()
-                    break;
-            default:
-                    Console.WriteLine("Invalid input, Try again");
-                    break;
+                switch (input)
+                {
+                    case "1":
+                        HandlingCreateNote();
+                        break;
+                    case "2":
+                        HandlingDeleteNote();
+                        break;
+                    case "3":
+                        HandlingShowNotes();
+                        break;
+                    case "4":
+                        return;
+                    default:
+                        Console.WriteLine("Invalid input, Try again");
+                        break;
+                }
             }
         }
         public void HandlingRegister()
@@ -83,6 +93,7 @@ namespace NotesApp
             else { 
                 Console.WriteLine("Your Account Doesnt exist that way");
             }
+            return;
         }
         public void HandlingCreateNote() {
             Console.WriteLine("What is the note title");
@@ -95,8 +106,12 @@ namespace NotesApp
         {
             if (_userManagment.currentUser == null || _userManagment.currentUser.Notes.Count == 0) {
                 Console.WriteLine("You dont have Notes");
+                return;
             }
-                for (int i = 0; i > _userManagment.currentUser.Notes.Count; i++)
+            Console.Clear();
+            Console.WriteLine("--- Your Notes ---");
+            // 
+            for (int i = 0; i < _userManagment.currentUser.Notes.Count; i++)
                 {
                 var note = _userManagment.currentUser.Notes[i];
                 Console.WriteLine($"{i + 1} {note.Title}");
@@ -109,7 +124,24 @@ namespace NotesApp
         
         public void HandlingDeleteNote()
         {
-         HandlingShowNotes();   
+         HandlingShowNotes();
+            if (_userManagment.currentUser == null || _userManagment.currentUser.Notes.Count == 0) {
+                Console.WriteLine("You dont have Notes");
+            }
+            Console.WriteLine("Which note would you like to delete ? Enter the number");
+            string input = Console.ReadLine();
+            int which;
+            if (int.TryParse(input, out which))
+            {
+                if (which > 0 && which <= _userManagment.currentUser.Notes.Count)
+                {
+                    _userManagment.currentUser.Notes.RemoveAt(which - 1);
+                    Console.WriteLine("Note deleted successfully!");
+                }
+
+            }
+            else {
+                Console.WriteLine("Invalid input. Please enter a valid number.");}
         }
             
     }

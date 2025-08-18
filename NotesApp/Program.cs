@@ -7,5 +7,6 @@ class Program
         UserManagment userManagment = new UserManagment();
         UserInteraction userInteraction = new UserInteraction(userManagment);
         userInteraction.SignInUp();
+        userInteraction.Menu();
     }
 }

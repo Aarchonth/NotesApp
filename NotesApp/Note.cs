@@ -14,4 +14,5 @@ namespace NotesApp
         //public string Cover { get; set; }       // Optionales "Cover"-Bild oder Symbol
 
     }
+    
 }
