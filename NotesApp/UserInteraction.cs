@@ -15,8 +15,7 @@ namespace NotesApp
             _userManagment = userManagment;
         }
         public void SignInUp()
-        {
-            //UserManagment userManagment = new UserManagment();
+        { 
             Console.WriteLine("Register. 1");
             Console.WriteLine("Login. 2");
 
@@ -92,5 +91,26 @@ namespace NotesApp
             string content = Console.ReadLine();
             _userManagment.CreateNote(title, content);
         }
+       public void HandlingShowNotes()
+        {
+            if (_userManagment.currentUser == null || _userManagment.currentUser.Notes.Count == 0) {
+                Console.WriteLine("You dont have Notes");
+            }
+                for (int i = 0; i > _userManagment.currentUser.Notes.Count; i++)
+                {
+                var note = _userManagment.currentUser.Notes[i];
+                Console.WriteLine($"{i + 1} {note.Title}");
+                Console.WriteLine($"    Inhalt: {note.Content}");
+                Console.WriteLine("-----------------------------------");
+            }
+                
+                
+            }
+        
+        public void HandlingDeleteNote()
+        {
+         HandlingShowNotes();   
+        }
+            
     }
 }

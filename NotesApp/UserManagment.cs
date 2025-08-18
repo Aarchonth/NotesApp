@@ -42,5 +42,11 @@ namespace NotesApp
             currentUser.Notes.Add(note);
             return true;
         }
+        public bool DeleteNote(string title) { 
+        if (currentUser == null) { return false; }
+            {
+               
+            }
+        }
     }
 }
