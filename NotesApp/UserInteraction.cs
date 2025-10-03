@@ -12,6 +12,7 @@ namespace NotesApp
     {
         private UserManagment _userManagment;
         // Konstruktor
+        
         public UserInteraction(UserManagment userManagment)
         {
             _userManagment = userManagment;
@@ -65,7 +66,7 @@ namespace NotesApp
                 }
             }
         }
-        public void HandlingRegister()
+        public async void HandlingRegister()
         {
             Console.WriteLine("Type in Your name please");
             string name = Console.ReadLine();
@@ -74,9 +75,11 @@ namespace NotesApp
             Console.WriteLine("Type in Your Password please");
             string password = Console.ReadLine();
 
-            _userManagment.Register(name, email, password);
+            await _userManagment.Register(name, email, password);
+            Console.WriteLine("Youre Sucessfully registered");
+            SignInUp();
         }
-        public void HandlingLogIn() {
+        public async void HandlingLogIn() {
             Console.WriteLine("Type in Your Name please.");
             string name = Console.ReadLine();
             Console.WriteLine("Type in Your Email please.");
@@ -84,7 +87,7 @@ namespace NotesApp
             Console.WriteLine("Type in Your Password please.");
             string password = Console.ReadLine();
 
-            Account account = _userManagment.LogIn(name, email, password);
+            Account account = await _userManagment.LogIn(name, email, password);
 
             if (account != null) {
                 Console.WriteLine("Youre Sucessfully logged in");
@@ -92,6 +95,7 @@ namespace NotesApp
             }
             else { 
                 Console.WriteLine("Your Account Doesnt exist that way");
+                SignInUp();
             }
             return;
         }
